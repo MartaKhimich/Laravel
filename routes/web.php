@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +28,15 @@ Route::get('/info', function() {
     return "Project GeekBrains. Student: Marta Khimich";
 });
 
-//страница для вывода нескольких новостей
-Route::get('/news', function() {
-    return "News";
-});
+Route::group(['prefix' => ''], static function() {
+    //страница для вывода нескольких новостей
+    Route::get('/news', [NewsController::class, 'index'])
+        //метод именования роутов, если меняется uri, то не надо
+        //менять везде, так как мы указываем имя роута, а не uri
+         ->name('news');
 
-//страница для вывода одной новости
-Route::get('/news/{id}', static function(int $id): string {
-    return "News with #ID {$id}";
+    //страница для вывода одной новости
+    Route::get('/news/{id}/show', [NewsController::class, 'show'])
+    ->where('id', '\d+')
+        ->name('news.show'); //\d+ регулярное выражение, на вход - только цифры
 });
