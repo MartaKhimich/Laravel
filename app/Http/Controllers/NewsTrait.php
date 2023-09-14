@@ -18,8 +18,10 @@ trait NewsTrait
                 $news[$i] = [
                     'id' => $i,
                     'title' => \fake()->jobTitle(),//хелпер - функция доступная по всему проекту
+                    'image' => \fake()->imageUrl(),
                     'description' => \fake()->text(100),
                     'author' => \fake()->userName(),
+                    'status' => 'ACTIVE',
                     'created_at' => \now()->format('d-m-Y H:i'),
                 ];
             }
@@ -28,8 +30,10 @@ trait NewsTrait
         return [
             'id' => $id,
             'title' => \fake()->jobTitle(),
-            'description' => \fake()->text(100),
+            'image' => \fake()->imageUrl(),
+            'description' => \fake()->text(1000),
             'author' => \fake()->userName(),
+            'status' => 'ACTIVE',
             'created_at' => \now()->format('d-m-Y H:i'),
         ];
     }

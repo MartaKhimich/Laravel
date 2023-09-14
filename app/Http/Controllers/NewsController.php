@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+
 
 class NewsController extends Controller
 {
     use NewsTrait;
 
     //отображает список новостей
-    public function index()
+    public function index(): View
     {
         return \view('news.index', [
-            'news' => $this->getNews(),
+            'newsList' => $this->getNews(),
             //передаем внутрь представления параметры
             //нужно создать переменную news в представлении
             //и передать в неё массив news из метода getNews
@@ -22,8 +24,10 @@ class NewsController extends Controller
     }
 
     //Отображает конкретную новость
-    public function show(int $id): array
+    public function show(int $id): View
     {
-        return $this->getNews($id);
+        return \view('news.show', [
+            'news' => $this->getNews($id),
+        ]);
     }
 }
