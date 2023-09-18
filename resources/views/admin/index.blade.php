@@ -5,4 +5,12 @@
         <div class="btn-toolbar mb-2 mb-md-0">
         </div>
     </div>
+
+    {{--С двумя точками передается динамическое значение, без точек - статическое--}}
+    <x-alert :type="request()->query('t', 'light')" message="Some alert a message"></x-alert>
+    <x-alert type="danger" message="Some alert a message"></x-alert>
+    <x-alert type="info" message="Some alert a message"></x-alert>
+    <x-alert type="success" message="Some alert a message"></x-alert>
+    <x-alert type="warning" message="Some alert a message"></x-alert>
+    <x-alert type="primary" message="Some alert a message"></x-alert>
 @endsection

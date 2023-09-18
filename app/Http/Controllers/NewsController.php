@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 
-class NewsController extends Controller
+final class NewsController extends Controller
 {
     use NewsTrait;
 

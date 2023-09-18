@@ -9,19 +9,10 @@ use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use \App\Http\Controllers\Admin\IndexController as AdminController;
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
+|Маршрутизация. Данный файл определяет маршруты для веб-интерфейса
+|К маршрутам, определенным в данном файле, можно получить доступ,
+|введя URL-адрес определенного маршрута в браузере
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 //пробная страница
 Route::get('/hello/{name}', static function(string $name): string {
@@ -56,8 +47,8 @@ Route::group(['prefix' => ''], static function() {
         ->name('category.show');
 });
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('/', AdminController::class)->name('index');
-    Route::resource('adminCategories', AdminCategoryController::class);
-    Route::resource('adminNews', AdminNewsController::class);
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
+    Route::get('/', AdminController::class)->name('index'); //набираем http://127.0.0.1:5555/admin
+    Route::resource('categories', AdminCategoryController::class);
+    Route::resource('news', AdminNewsController::class); //набираем http://127.0.0.1:5555/admin/news
 });
