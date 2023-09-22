@@ -16,6 +16,7 @@ trait CategoryTrait
             for($i=1; $i <= $quantityCategories; $i++){
                 $data[$i] = [
                     'category_id' => $i,
+                    'title' => \fake()->jobTitle(),
                     'news' => \fake()->text(100),
                 ];
             }
@@ -24,6 +25,7 @@ trait CategoryTrait
 
         return [
             'category_id' => $id,
+            'title' => \fake()->jobTitle(),
             'news' => \fake()->text(100),
         ];
     }
