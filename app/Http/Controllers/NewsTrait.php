@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-
+//По сути NewsTrait - модель в схеме MVC
 trait NewsTrait
 {
     //метод принимает на вход id, но этот идентификатор м/б null

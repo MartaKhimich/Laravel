@@ -193,6 +193,8 @@
     </symbol>
 </svg>
 
+{{--x значит обращение к компоненту, admin - имя папки
+ header - обращение к компоненту--}}
 <x-admin.header></x-admin.header>
 <div class="container-fluid">
     <div class="row">
