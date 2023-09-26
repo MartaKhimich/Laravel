@@ -6,17 +6,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 final class NewsController extends Controller
 {
-    use NewsTrait;
 
     //отображает список новостей
     public function index(): View
     {
+        $news = DB::table('news')->get();
         return \view('news.index', [
-            'newsList' => $this->getNews(),
+            'newsList' => $news,
             //передаем внутрь представления параметры
             //нужно создать переменную news в представлении
             //и передать в неё массив news из метода getNews
@@ -26,8 +27,9 @@ final class NewsController extends Controller
     //Отображает конкретную новость
     public function show(int $id): View
     {
+        $news = DB::table('news')->find($id);
         return \view('news.show', [
-            'news' => $this->getNews($id),
+            'news' => $news,
         ]);
     }
 }

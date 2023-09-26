@@ -19,7 +19,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(request()->routeIs('admin.news.index')) active @endif" href="{{ route('admin.news.index') }}">
+                    <a class="nav-link @if(
+                        request()->routeIs('admin.news.index') ||
+                        request()->routeIs('admin.news.create')
+                        ) active @endif" href="{{ route('admin.news.index') }}">
                         <svg class="bi"><use xlink:href="#cart"/></svg>
                         Новости
                     </a>
