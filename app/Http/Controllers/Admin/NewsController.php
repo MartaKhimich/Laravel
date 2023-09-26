@@ -6,8 +6,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\NewsTrait;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -37,11 +39,27 @@ class NewsController extends Controller
      * Store a newly created resource in storage.
      * Получаем данные из формы создания новости
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
+        $post = [
+            'category_id' => $request->input('category_id'),
+            'title' => $request->input('title'),
+            'image' => $request->input('image'),
+            'description' => $request->input('description'),
+            'author' => $request->input('author'),
+            'status' => $request->input('status'),
+            'created_at' => now(),
+        ];
+
+        $postId = DB::table('news')->insertGetId($post);
+
+        return redirect(route('news.show', [
+            'id' => $postId
+        ]));
+
         //dd($request->all());
-        $request->flash();
-        return redirect()->route('admin.news.create');
+//        $request->flash();
+//        return redirect()->route('admin.news.create');
     }
 
     /**

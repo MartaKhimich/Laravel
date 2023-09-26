@@ -10,8 +10,31 @@
         {{--csrf создает скрытое поле _token для проверки csrf запроса post--}}
         @csrf
         <div class="form-group">
+            <label for="category_id">Категория новостей</label>
+            <select class="form-control" name="category_id" id="category_id">
+                <option @if(old('category_id') === '1') selected @endif>1</option>
+                <option @if(old('category_id') === '2') selected @endif>2</option>
+                <option @if(old('category_id') === '3') selected @endif>3</option>
+                <option @if(old('category_id') === '4') selected @endif>4</option>
+                <option @if(old('category_id') === '5') selected @endif>5</option>
+                <option @if(old('category_id') === '6') selected @endif>6</option>
+                <option @if(old('category_id') === '7') selected @endif>7</option>
+                <option @if(old('category_id') === '8') selected @endif>8</option>
+                <option @if(old('category_id') === '9') selected @endif>9</option>
+                <option @if(old('category_id') === '10') selected @endif>10</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="title">Заголовок</label>
             <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
+        </div>
+        <div class="form-group">
+            <label for="image">Фото</label>
+            <input type="url" class="form-control" name="image" id="image" value="{{ old('image') }}">
+        </div>
+        <div class="form-group">
+            <label for="description">Описание</label>
+            <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
         </div>
         <div class="form-group">
             <label for="author">Автор</label>
@@ -25,11 +48,7 @@
                 <option @if(old('status') === 'blocked') selected @endif>blocked</option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="description">Описание</label>
-            <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
-        </div>
-        <button type="submit" class="btn btn-success">Save</button>
+        <button style="margin-top:20px;" type="submit" class="btn btn-success">Save</button>
     </form>
 @endsection
 
