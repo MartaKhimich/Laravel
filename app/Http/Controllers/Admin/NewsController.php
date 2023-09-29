@@ -5,22 +5,26 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\NewsTrait;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Category;
+use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
-    use NewsTrait;
     /**
      * Display a listing of the resource.
      * Отображает данные (условно весь список новостей)
      */
     public function index(): View
     {
-        $news = $this->getNews();
+        $news = News::query()
+            ->status()
+            ->with('category')
+            ->orderByDesc('id')
+            ->paginate(10);
+        //$news = DB::table('news')->get();
         return \view('admin.news.index', [
             'newsList' => $news
         ]);
@@ -32,30 +36,36 @@ class NewsController extends Controller
      */
     public function create(): View
     {
-        return \view('admin.news.create');
+        $categories = Category::all();
+        return \view('admin.news.create')->with([
+            'categories' => $categories,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      * Получаем данные из формы создания новости
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $post = [
-            'category_id' => $request->input('category_id'),
-            'title' => $request->input('title'),
-            'image' => $request->input('image'),
-            'description' => $request->input('description'),
-            'author' => $request->input('author'),
-            'status' => $request->input('status'),
-            'created_at' => now(),
-        ];
+        $data = $request->only([
+            'category_id',
+            'title',
+            'image',
+            'description',
+            'author',
+            'status'
+        ]);
 
-        $postId = DB::table('news')->insertGetId($post);
+        $news = new News($data);
 
-        return redirect(route('news.show', [
-            'id' => $postId
-        ]));
+        if($news->save()) {
+            return redirect()->route('admin.news.index')
+                ->with('success', 'Запись успешно сохранена');
+        }
+
+        return back()->with('error', 'Не удалось добавить запись');
+
 
         //dd($request->all());
 //        $request->flash();
@@ -76,18 +86,42 @@ class NewsController extends Controller
      * Show the form for editing the specified resource.
      * Отображает форму редактирования новости
      */
-    public function edit(string $id)
+    public function edit(News $news): View
     {
-        //
+        $categories = Category::all();
+        return \view('admin.news.edit')->with([
+            'categories' => $categories,
+            'news' =>  $news,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      * Данный метод сохраняет данные из формы edit
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, News $news)
     {
-        //
+        //$request->flash();
+        //return redirect()->route('admin.news.edit', ['news' => $news]);
+
+        $data = $request->only([
+            'category_id',
+            'title',
+            'image',
+            'description',
+            'author',
+            'status'
+        ]);
+
+        $news->fill($data);
+
+        if($news->save()) {
+            return redirect()->route('admin.news.index')
+                ->with('success', 'Запись успешно изменена');
+        }
+
+        return back()->with('error', 'Не удалось добавить запись');
+
     }
 
     /**

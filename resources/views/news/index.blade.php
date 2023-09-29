@@ -13,19 +13,19 @@
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                @forelse($newsList as $n)
+                @forelse($newsList as $news)
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="{{ $n->image }}">
+                        <img src="{{ $news->image }}">
                         <div class="card-body">
-                            <h2><strong>{{ $n->title }}</strong></h2>
-                            <p><strong>{{ $n->status }}</strong></p>
-                            <p class="card-text">{{ $n->description }}</p>
+                            <h2><strong>{{ $news->title }}</strong></h2>
+                            <p><strong>{{ $news->status }}</strong></p>
+                            <p class="card-text">{{ $news->description }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="{{ route('news.show', ['id'=> $n->id]) }}" class="btn btn-sm btn-outline-secondary">Show</a>
+                                    <a href="{{ route('news.show', $news) }}" class="btn btn-sm btn-outline-secondary">Show</a>
                                 </div>
-                                <small class="text-body-secondary">{{ $n->author }} ({{ $n->created_at }})</small>
+                                <small class="text-body-secondary">{{ $news->author }} ({{ $news->created_at }})</small>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,10 @@
                 @empty
                     <h3>Новостей нет</h3>
                 @endforelse
+
             </div>
+            <br>
+            {{ $newsList->links() }}
         </div>
     </div>
 @endsection

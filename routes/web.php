@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\NewsController;
 use \App\Http\Controllers\CategoryController;
-use \App\Http\Controllers\IndexController;
+use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use \App\Http\Controllers\Admin\IndexController as AdminController;
@@ -14,14 +14,8 @@ use \App\Http\Controllers\Admin\IndexController as AdminController;
 |введя URL-адрес определенного маршрута в браузере
 */
 
-//пробная страница
-Route::get('/hello/{name}', static function(string $name): string {
-    return "Hello, {$name}";
-});
-
 //страница с информацией о проекте
-Route::get('/info', [IndexController::class, 'index'])
-    ->name('info');
+Route::get('/', HomeController::class)->name('home');
 
 Route::group(['prefix' => ''], static function() {
     //страница для вывода нескольких новостей
@@ -31,9 +25,8 @@ Route::group(['prefix' => ''], static function() {
          ->name('news');
 
     //страница для вывода одной новости
-    Route::get('/news/{id}/show', [NewsController::class, 'show'])
-    ->where('id', '\d+')
-        ->name('news.show'); //\d+ регулярное выражение, на вход - только цифры
+    Route::get('/news/{news}/show', [NewsController::class, 'show'])
+        ->name('news.show');
 });
 
 Route::group(['prefix' => ''], static function() {
@@ -42,8 +35,7 @@ Route::group(['prefix' => ''], static function() {
         ->name('categories');
 
     //страница для вывода одной категории
-    Route::get('/categories/{id}/show', [CategoryController::class, 'show'])
-        ->where('id', '\d+')
+    Route::get('/categories/{category}/show', [CategoryController::class, 'show'])
         ->name('category.show');
 });
 

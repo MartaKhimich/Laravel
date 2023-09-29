@@ -18,16 +18,22 @@ class CategorySeeder extends Seeder
 
     public function getData(): array
     {
-        $quantityCategories = 10;
-        $categories = [];
-        for ($i=0; $i < $quantityCategories; $i++) {
-            $categories[] = [
-                'title' => fake()->jobTitle(),
-                'description' => fake()->text(100) ,
+        return [
+            [
+                'title' => 'Политика',
+                'description' => 'Новости политики',
                 'created_at' => now(),
-            ];
-        }
-
-        return $categories;
+            ],
+            [
+                'title' => 'Спорт',
+                'description' => 'Новости спорта',
+                'created_at' => now(),
+            ],
+            [
+                'title' => 'Санкт-Петербург',
+                'description' => 'Новости Санкт-Петербурга',
+                'created_at' => now(),
+            ]
+        ];
     }
 }

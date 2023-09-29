@@ -19,8 +19,14 @@
     </div>
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
+            <a href="{{ route('home') }}" class="navbar-brand d-flex align-items-center">
+                <strong>Home</strong>
+            </a>
             <a href="{{ route('news') }}" class="navbar-brand d-flex align-items-center">
-                <strong>News Aggregator</strong>
+                <strong>News</strong>
+            </a>
+            <a href="{{ route('admin.index') }}" class="navbar-brand d-flex align-items-center">
+                <strong>Admin</strong>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

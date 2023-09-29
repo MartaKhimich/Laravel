@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,8 @@ final class NewsController extends Controller
     //отображает список новостей
     public function index(): View
     {
-        $news = DB::table('news')->get();
+        $news = News::query()->paginate(6);// с моделью News
+        //$news = DB::table('news')->get(); без модели
         return \view('news.index', [
             'newsList' => $news,
             //передаем внутрь представления параметры
@@ -25,9 +27,10 @@ final class NewsController extends Controller
     }
 
     //Отображает конкретную новость
-    public function show(int $id): View
+    public function show(News $news): View
     {
-        $news = DB::table('news')->find($id);
+        //$news = News::query()->find($id); с моделью News
+        //$news = DB::table('news')->find($id); без модели
         return \view('news.show', [
             'news' => $news,
         ]);

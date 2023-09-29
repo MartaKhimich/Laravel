@@ -24,12 +24,12 @@ class NewsSeeder extends Seeder
         $news = [];
         for ($i=0; $i < $quantityNews; $i++) {
             $news[] = [
-                'category_id' => fake()->numberBetween(1,10),
+                'category_id' => fake()->numberBetween(1,3),
                 'title' => fake()->jobTitle(),
                 'image'  => fake()->imageUrl(200, 150),
                 'description' => fake()->text(100) ,
                 'author' => fake()->userName(),
-                'status' => Arr::random($status),
+                'status' => fake()->randomElement($status),
                 'created_at' => now(),
             ];
         }

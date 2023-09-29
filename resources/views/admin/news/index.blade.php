@@ -9,11 +9,20 @@
         </div>
     </div>
     <div class="table-responsive small">
+        @include('inc.message')
+        <select  id="filter">
+            <option>selected</option>
+            <option>draft</option>
+            <option>active</option>
+            <option>blocked</option>
+        </select>
+        <br>
         <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Заголовок</th>
+                <th scope="col">Категория</th>
                 <th scope="col">Автор</th>
                 <th scope="col">Статус</th>
                 <th scope="col">Дата добавления</th>
@@ -21,14 +30,15 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($newsList as $n)
+            @forelse($newsList as $news)
             <tr>
-                <td>{{ $n['id'] }}</td>
-                <td>{{ $n['title'] }}</td>
-                <td>{{ $n['author'] }}</td>
-                <td>{{ $n['status'] }}</td>
-                <td>{{ $n['created_at'] }}</td>
-                <td><a href="">Ред.</a> | <a href="" style="color: red">Удал.</a></td>
+                <td>{{ $news->id }}</td>
+                <td>{{ $news->title }}</td>
+                <td>{{ $news->category->title }}</td>
+                <td>{{ $news->author }}</td>
+                <td>{{ $news->status }}</td>
+                <td>{{ $news->created_at }}</td>
+                <td><a href="{{ route('admin.news.edit', $news) }}">Ред.</a> | <a href="" style="color: red">Удал.</a></td>
             </tr>
             @empty
                 <tr>
@@ -37,7 +47,18 @@
             @endforelse
             </tbody>
         </table>
+        {{ $newsList->links() }}
     </div>
 @endsection
+@push('js')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let filter = document.getElementById("filter");
+            filter.addEventListener("change", function (event) {
+                location.href = "?f=" + this.value;
+            });
+        });
+    </script>
+@endpush
 
 

@@ -7,7 +7,6 @@
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-
             <div class="carousel-item active">
                 <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
                 <div class="container">
@@ -58,13 +57,12 @@
 
         <!-- Three columns of text below the carousel -->
         <div class="row">
-            <?php foreach($categories as $c): ?>
+            <?php foreach($categories as $category): ?>
                 <div class="col-lg-4">
                     <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-                    <h2 class="fw-normal">Category<?=$c['category_id']?></h2>
-                    <h4 class="fw-normal"><?=$c['title']?></h4>
-                    <p><?=$c['news']?></p>
-                    <p><a class="btn btn-secondary" href="<?=route('category.show', ['id' => $c['category_id']])?>">View details &raquo;</a></p>
+                    <h2 class="fw-normal">{{ $category->title }}</h2>
+                    <p>{{ $category->description }}</p>
+                    <p><a class="btn btn-secondary" href="{{ route('category.show', $category) }}">View details &raquo;</a></p>
                 </div><!-- /.col-lg-4 -->
             <?php endforeach; ?>
         </div><!-- /.row -->

@@ -144,36 +144,15 @@
     </ul>
 </div>
 
-
-<header data-bs-theme="dark">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container-fluid">
-            <a href="{{ route('news') }}" class="navbar-brand d-flex align-items-center">
-                <strong>News Aggregator</strong>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav>
-</header>
+<!-- HEADER -->
+<x-news.header></x-news.header>
 
 <main>
-
     @yield('content')
-
-
-    <!-- FOOTER -->
-        <footer class="text-body-secondary py-5">
-            <div class="container">
-                <p class="float-end mb-1">
-                    <a href="#">Back to top</a>
-                </p>
-                <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-                <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
-            </div>
-        </footer>
 </main>
+
+<!-- FOOTER -->
+<x-news.footer></x-news.footer>
 
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 

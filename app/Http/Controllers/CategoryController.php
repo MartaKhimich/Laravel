@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 
+use App\Models\Category;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
-    use CategoryTrait;
-
     //отображает список категорий
     public function index(): View
     {
+        $categories = Category::all();
+        //$categories = DB::table('categories')->get();
         return \view('news.categories', [
-            'categories' => $this->getCategories(),
+            'categories' => $categories,
             //передаем внутрь представления параметры
             //нужно создать переменную categories в представлении
             //и передать в неё массив data из метода getCategories
@@ -23,8 +25,11 @@ class CategoryController extends Controller
     }
 
     //Отображает конкретную категорию
-    public function show(int $id): array
+    public function show(Category $category): View
     {
-        return $this->getCategories($id);
+        //$categories = DB::table('categories')->find($id);
+        return \view('#', [
+            'categories' => $category,
+        ]);
     }
 }
