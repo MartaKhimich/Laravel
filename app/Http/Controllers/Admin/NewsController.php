@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\News\Create;
+use App\Http\Requests\Admin\News\Edit;
 use App\Models\Category;
 use App\Models\News;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class NewsController extends Controller
 {
@@ -46,8 +47,9 @@ class NewsController extends Controller
      * Store a newly created resource in storage.
      * Получаем данные из формы создания новости
      */
-    public function store(Request $request)
+    public function store(Create $request)
     {
+
         $data = $request->only([
             'category_id',
             'title',
@@ -99,7 +101,7 @@ class NewsController extends Controller
      * Update the specified resource in storage.
      * Данный метод сохраняет данные из формы edit
      */
-    public function update(Request $request, News $news)
+    public function update(Edit $request, News $news)
     {
         //$request->flash();
         //return redirect()->route('admin.news.edit', ['news' => $news]);
@@ -128,8 +130,19 @@ class NewsController extends Controller
      * Remove the specified resource from storage.
      * Метод удаляет данные из формы edit
      */
-    public function destroy(string $id)
+    public function destroy(News $news)
     {
-        //
+        //сделаем асинхронное удаление,
+        //без перезагрузки страницы
+
+        try{
+            $news->delete();
+
+            return response()->json('ok');
+
+        } catch (\Exception $e) {
+            Log::error($e->getMessage(), $e->getTrace());
+            return response()->json('error', 400);
+        }
     }
 }

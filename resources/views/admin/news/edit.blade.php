@@ -7,6 +7,12 @@
     </div>
     @include('inc.message')
 
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <x-alert :message="$error" type="danger"></x-alert>
+        @endforeach
+    @endif
+
     <form method="post" action="{{ route('admin.news.update', $news) }}">
         {{--csrf создает скрытое поле _token для проверки csrf запроса post--}}
         @csrf
@@ -50,6 +56,7 @@
             </select>
         </div>
         <button style="margin-top:20px;" type="submit" class="btn btn-success">Update</button>
+        <a href="{{ route('admin.news.index') }}" style="margin-top:20px;"  class="btn btn-danger">Cancel</a>
     </form>
 @endsection
 

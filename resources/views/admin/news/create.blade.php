@@ -5,6 +5,13 @@
         <div class="btn-toolbar mb-2 mb-md-0">
         </div>
     </div>
+
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <x-alert :message="$error" type="danger"></x-alert>
+        @endforeach
+    @endif
+
     @include('inc.message')
 
     <form method="post" action="{{ route('admin.news.store') }}">
@@ -23,7 +30,11 @@
         </div>
         <div class="form-group">
             <label for="title">Заголовок</label>
-            <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
+            <input type="text" class="form-control @error('title') is-invalid @enderror"
+                   name="title" id="title" value="{{ old('title') }}">
+            @error('title') <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                {{ $message }}
+            </div> @enderror
         </div>
         <div class="form-group">
             <label for="image">Изображение</label>
@@ -47,6 +58,7 @@
             </select>
         </div>
         <button style="margin-top:20px;" type="submit" class="btn btn-success">Save</button>
+        <a href="{{ route('admin.news.index') }}" style="margin-top:20px;"  class="btn btn-danger">Cancel</a>
     </form>
 @endsection
 

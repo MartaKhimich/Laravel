@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Category\Create;
+use App\Http\Requests\Admin\Category\Edit;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -32,11 +34,25 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Create $request)
     {
+        $data = $request->only([
+            'title',
+            'description',
+        ]);
+
+        $category = new Category($data);
+
+        if($category->save()) {
+            return redirect()->route('admin.categories.index')
+                ->with('success', 'Запись успешно сохранена');
+        }
+
+        return back()->with('error', 'Не удалось добавить запись');
+
         //dd($request->all());
-        $request->flash();
-        return redirect()->route('admin.categories.create');
+//        $request->flash();
+//        return redirect()->route('admin.categories.create');
     }
 
     /**
@@ -58,7 +74,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Edit $request, Category $category)
     {
         //
     }

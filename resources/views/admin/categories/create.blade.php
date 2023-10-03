@@ -6,6 +6,14 @@
         </div>
     </div>
 
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <x-alert :message="$error" type="danger"></x-alert>
+        @endforeach
+    @endif
+
+    @include('inc.message')
+
     <form method="post" action="{{ route('admin.categories.store') }}">
         {{--csrf создает скрытое поле _token для проверки csrf запроса post--}}
         @csrf
@@ -13,7 +21,12 @@
             <label for="title">Название</label>
             <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
         </div>
-        <button type="submit" class="btn btn-success">Save</button>
+        <div class="form-group">
+            <label for="description">Описание</label>
+            <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
+        </div>
+        <button style="margin-top:20px;" type="submit" class="btn btn-success">Save</button>
+        <a href="{{ route('admin.categories.index') }}" style="margin-top:20px;"  class="btn btn-danger">Cancel</a>
     </form>
 @endsection
 
