@@ -11,7 +11,7 @@ use Illuminate\View\Component;
 class Alert extends Component
 {
     /**
-     * Create a new component instance.
+     * CreateRequest a new component instance.
      */
     public function __construct(
         public string $type,

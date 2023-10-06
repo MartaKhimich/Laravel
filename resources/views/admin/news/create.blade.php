@@ -14,7 +14,7 @@
 
     @include('inc.message')
 
-    <form method="post" action="{{ route('admin.news.store') }}">
+    <form method="post" action="{{ route('admin.news.store') }}" enctype="multipart/form-data">
         {{--csrf создает скрытое поле _token для проверки csrf запроса post--}}
         @csrf
         <div class="form-group">
@@ -38,8 +38,8 @@
         </div>
         <div class="form-group">
             <label for="image">Изображение</label>
-            <input type="url" class="form-control" name="image" id="image" value="{{ old('image') }}">
-            {{--<input type="file" class="form-control" name="image" id="image" value="{{ old('image') }}">--}}
+{{--            <img src="{{ $news->image }}" width="100">--}}
+            <input type="file" class="form-control" name="image" id="image">
         </div>
         <div class="form-group">
             <label for="description">Описание</label>

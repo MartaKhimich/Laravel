@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Category\Create;
-use App\Http\Requests\Admin\Category\Edit;
+use App\Http\Requests\Admin\Category\CreateRequest;
+use App\Http\Requests\Admin\Category\EditRequest;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Create $request)
+    public function store(Request $request)
     {
         $data = $request->only([
             'title',
@@ -74,7 +74,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Edit $request, Category $category)
+    public function update(EditRequest $request, Category $category)
     {
         //
     }

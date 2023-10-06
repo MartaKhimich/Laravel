@@ -25,7 +25,7 @@ abstract class DuskTestCase extends BaseTestCase
     }
 
     /**
-     * Create the RemoteWebDriver instance.
+     * CreateRequest the RemoteWebDriver instance.
      */
     protected function driver(): RemoteWebDriver
     {

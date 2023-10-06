@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\News\Create;
-use App\Http\Requests\Admin\News\Edit;
+use App\Http\Requests\Admin\News\CreateRequest;
+use App\Http\Requests\Admin\News\EditRequest;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -47,7 +49,7 @@ class NewsController extends Controller
      * Store a newly created resource in storage.
      * Получаем данные из формы создания новости
      */
-    public function store(Create $request)
+    public function store(Request $request)
     {
 
         $data = $request->only([
@@ -58,6 +60,13 @@ class NewsController extends Controller
             'author',
             'status'
         ]);
+
+        $name = null;
+        if($request->file('image')) {
+            $path = Storage::putFile('public/images/news', $request->file('image'));
+            $name = Storage::url($path);
+        }
+        $data['image'] = $name;
 
         $news = new News($data);
 
@@ -101,7 +110,7 @@ class NewsController extends Controller
      * Update the specified resource in storage.
      * Данный метод сохраняет данные из формы edit
      */
-    public function update(Edit $request, News $news)
+    public function update(Request $request, News $news)
     {
         //$request->flash();
         //return redirect()->route('admin.news.edit', ['news' => $news]);
@@ -114,6 +123,15 @@ class NewsController extends Controller
             'author',
             'status'
         ]);
+
+        if ($request->file('image')) {
+            $request->validate([
+                'image' => ['sometimes', 'image', 'mimes:jpeg,bmp,png|max:1500']
+            ]);
+            $path = Storage::putFile('public/images/news', $request->file('image'));
+            $name = Storage::url($path);
+            $data['image'] = $name;
+        }
 
         $news->fill($data);
 

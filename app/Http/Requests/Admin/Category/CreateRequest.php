@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\News;
+namespace App\Http\Requests\Admin\Category;
 
-use App\Models\Category;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 
-class Edit extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +21,9 @@ class Edit extends FormRequest
      */
     public function rules(): array
     {
-        $tableNameCategory = (new Category())->getTable();
-
         return [
-            'category_id' => ['required', 'integer', "exists:{$tableNameCategory},id"],
             'title' => ['required', 'string', 'min:3', 'max:150'],
-            'image' => ['nullable', 'url'],
-            'description' => ['nullable', 'string'],
-            'author' => ['required', 'string', 'min:2', 'max:100'],
-            'status' => ['required'],
+            'description' => ['required', 'string', 'min:5', 'max:200'],
         ];
     }
 
@@ -40,7 +32,6 @@ class Edit extends FormRequest
         return [
             'title' => 'заголовок',
             'description' => 'описание',
-            'author' => 'автор',
         ];
     }
 }

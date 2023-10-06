@@ -13,7 +13,7 @@
         @endforeach
     @endif
 
-    <form method="post" action="{{ route('admin.news.update', $news) }}">
+    <form method="post" action="{{ route('admin.news.update', $news) }}" enctype="multipart/form-data">
         {{--csrf создает скрытое поле _token для проверки csrf запроса post--}}
         @csrf
         @method('PUT')
@@ -36,8 +36,8 @@
         </div>
         <div class="form-group">
             <label for="image">Изображение</label>
-            <input type="url" class="form-control" name="image" id="image" value="{{ old('image') ?? $news->image }}">
-            {{--<input type="file" class="form-control" name="image" id="image" value="{{ old('image') }}">--}}
+            <img src="{{ $news->image }}" width="100">
+            <input type="file" class="form-control" name="image" id="image">
         </div>
         <div class="form-group">
             <label for="description">Описание</label>
