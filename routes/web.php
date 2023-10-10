@@ -42,6 +42,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','is.admin'])->group(f
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('news', AdminNewsController::class); //набираем http://127.0.0.1:5555/admin/news
     Route::resource('users', AdminUsersController::class);
+    Route::get('/users/toggleAdmin/{user}', [AdminUsersController::class, 'toggleAdmin'])->name('toggleAdmin');
 });
 
 Auth::routes();

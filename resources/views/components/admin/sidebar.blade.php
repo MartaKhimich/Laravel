@@ -8,7 +8,7 @@
             <ul class="nav flex-column">
                 <li class="nav-item">
                     <a class="nav-link @if(request()->routeIs('admin.index')) active @endif" aria-current="page" href="{{ route('admin.index') }}">
-                        <svg class="bi"><use xlink:href="#house-fill"/></svg>
+                        <svg class="bi"><use xlink:href="#house"/></svg>
                         Панель управления
                     </a>
                 </li>
@@ -23,7 +23,7 @@
                         request()->routeIs('admin.news.index') ||
                         request()->routeIs('admin.news.create')
                         ) active @endif" href="{{ route('admin.news.index') }}">
-                        <svg class="bi"><use xlink:href="#cart"/></svg>
+                        <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
                         Новости
                     </a>
                 </li>
@@ -32,6 +32,28 @@
                         <svg class="bi"><use xlink:href="#people"/></svg>
                         Пользователи
                     </a>
+                </li>
+            </ul>
+
+            <hr class="my-3">
+
+            <ul class="nav flex-column mb-auto">
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="#">
+                        <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
+                        Профиль
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();">
+                        <svg class="bi"><use xlink:href="#door-closed"/></svg>
+                        Выход
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </div>

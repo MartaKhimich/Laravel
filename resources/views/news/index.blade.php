@@ -1,17 +1,11 @@
-@extends('layouts.main')
+@extends('layouts.app')
 {{--Переопределяем title для дочернего шаблона,
  parent возьмёт title из main.blade--}}
 @section('title') Список новостей - @parent @stop
 @section('content')
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Новости</h1>
-            </div>
-        </div>
-    </section>
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
+            <h2>News list</h2> <br>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 @forelse($newsList as $news)
                 <div class="col">
