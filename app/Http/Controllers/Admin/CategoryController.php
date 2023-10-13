@@ -8,7 +8,6 @@ use App\Http\Requests\Admin\Category\CreateRequest;
 use App\Http\Requests\Admin\Category\EditRequest;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -34,7 +33,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
         $data = $request->only([
             'title',
@@ -66,9 +65,11 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category) : view
     {
-        //
+        return \view('admin.categories.edit')->with([
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -76,7 +77,19 @@ class CategoryController extends Controller
      */
     public function update(EditRequest $request, Category $category)
     {
-        //
+        $data = $request->only([
+            'title',
+            'description',
+        ]);
+
+        $category->fill($data);
+
+        if($category->save()) {
+            return redirect()->route('admin.categories.index')
+                ->with('success', 'Запись успешно изменена');
+        }
+
+        return back()->with('error', 'Не удалось изменить запись');
     }
 
     /**

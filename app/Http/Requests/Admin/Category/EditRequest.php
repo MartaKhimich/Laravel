@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 class EditRequest extends FormRequest
 {
@@ -17,9 +18,9 @@ class EditRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array
      */
-    public function rules(): array
+    #[ArrayShape(['title' => "string[]", 'description' => "string[]"])] public function rules(): array
     {
         return [
             'title' => ['required', 'string', 'min:3', 'max:150'],
@@ -27,7 +28,7 @@ class EditRequest extends FormRequest
         ];
     }
 
-    public function attributes(): array
+    #[ArrayShape(['title' => "string", 'description' => "string"])] public function attributes(): array
     {
         return [
             'title' => 'заголовок',

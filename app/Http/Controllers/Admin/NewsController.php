@@ -49,7 +49,7 @@ class NewsController extends Controller
      * Store a newly created resource in storage.
      * Получаем данные из формы создания новости
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
 
         $data = $request->only([
@@ -61,12 +61,12 @@ class NewsController extends Controller
             'status'
         ]);
 
-        $name = null;
-        if($request->file('image')) {
-            $path = Storage::putFile('public/images/news', $request->file('image'));
-            $name = Storage::url($path);
-        }
-        $data['image'] = $name;
+//        $name = null;
+//        if($request->file('image')) {
+//            $path = Storage::putFile('public/images/news', $request->file('image'));
+//            $name = Storage::url($path);
+//        }
+//        $data['image'] = $name;
 
         $news = new News($data);
 
@@ -110,7 +110,7 @@ class NewsController extends Controller
      * Update the specified resource in storage.
      * Данный метод сохраняет данные из формы edit
      */
-    public function update(Request $request, News $news)
+    public function update(EditRequest $request, News $news)
     {
         //$request->flash();
         //return redirect()->route('admin.news.edit', ['news' => $news]);
@@ -124,14 +124,14 @@ class NewsController extends Controller
             'status'
         ]);
 
-        if ($request->file('image')) {
-            $request->validate([
-                'image' => ['sometimes', 'image', 'mimes:jpeg,bmp,png|max:1500']
-            ]);
-            $path = Storage::putFile('public/images/news', $request->file('image'));
-            $name = Storage::url($path);
-            $data['image'] = $name;
-        }
+//        if ($request->file('image')) {
+//            $request->validate([
+//                'image' => ['sometimes', 'image', 'mimes:jpeg,bmp,png|max:1500']
+//            ]);
+//            $path = Storage::putFile('public/images/news', $request->file('image'));
+//            $name = Storage::url($path);
+//            $data['image'] = $name;
+//        }
 
         $news->fill($data);
 
@@ -140,7 +140,7 @@ class NewsController extends Controller
                 ->with('success', 'Запись успешно изменена');
         }
 
-        return back()->with('error', 'Не удалось добавить запись');
+        return back()->with('error', 'Не удалось изменить запись');
 
     }
 
