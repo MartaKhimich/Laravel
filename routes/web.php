@@ -10,6 +10,7 @@ use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use \App\Http\Controllers\Admin\IndexController as AdminController;
 use \App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\SocialProvidersController;
+use App\Http\Controllers\Admin\ResourcesController;
 
 
 /*
@@ -47,6 +48,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','is.admin'])->group(f
     Route::resource('users', AdminUsersController::class);
     Route::get('/users/toggleAdmin/{user}', [AdminUsersController::class, 'toggleAdmin'])->name('toggleAdmin');
     Route::get('/parser', ParserController::class)->name('parser');
+    Route::resource('resources', ResourcesController::class);
+    Route::delete('/resources/delete/{resource}', [ResourcesController::class, 'delete'])->name('resources.delete');
 });
 
 Route::group(['middleware' => 'guest'], function () {
@@ -62,3 +65,4 @@ Route::group(['middleware' => 'guest'], function () {
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('image-upload', [AdminNewsController::class, 'storeImage'])->name('image.upload');

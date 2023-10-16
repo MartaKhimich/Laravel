@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Admin\News;
 
 use App\Models\Category;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
@@ -27,7 +26,7 @@ class CreateRequest extends FormRequest
 
         return [
             'category_id' => ['required', 'integer', "exists:{$tableNameCategory},id"],
-            'title' => ['required', 'string', 'min:3', 'max:150'],
+            'title' => ['required', 'string', 'min:3', 'max:1500'],
             'image' => ['sometimes', 'image', 'mimes:jpeg,bmp,png|max:1500'],
             'description' => ['nullable', 'string'],
             'author' => ['required', 'string', 'min:2', 'max:100'],

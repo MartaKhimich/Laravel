@@ -26,17 +26,14 @@ class ParserService implements Parser
             'title' => [
                 'uses' => 'channel.title',
             ],
-            'link' => [
-                'uses' => 'channel.link',
+            'image' => [
+                'uses' => 'channel.image.url',
             ],
             'description' => [
                 'uses' => 'channel.description',
             ],
-            'image' => [
-                'uses' => 'channel.image.url',
-            ],
             'news' => [
-                'uses' => 'channel.item[title,link,author,description,pubDate,category,enclosure::url]'
+                'uses' => 'channel.item[title,author,description,pubDate,category,enclosure::url]'
             ],
         ]);
 
@@ -48,12 +45,12 @@ class ParserService implements Parser
             ]);
 
             News::query()->firstOrCreate([
-                    'title' => $news['title'],
-                    'description' => $news['description'],
-                    'image' => $news['enclosure::url'],
                     'category_id' => $category->id,
-                    'status' => 'active',
+                    'title' => $news['title'],
+                    'image' => $news['enclosure::url'],
+                    'description' => $news['description'],
                     'author' => $news['author'],
+                    'status' => 'active',
             ]);
         }
 
