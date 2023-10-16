@@ -30,6 +30,15 @@
         <a href="{{ route('admin.categories.index') }}" style="margin-top:20px;"  class="btn btn-danger">Cancel</a>
     </form>
 @endsection
+@push('js')
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#description' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endpush
 
 
 

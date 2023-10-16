@@ -40,10 +40,6 @@
             <input type="file" class="form-control" name="image" id="image">
         </div>
         <div class="form-group">
-            <label for="description">Описание</label>
-            <textarea class="form-control" name="description" id="description">{{ old('description') ?? $news->description}}</textarea>
-        </div>
-        <div class="form-group">
             <label for="author">Автор</label>
             <input type="text" class="form-control" name="author" id="author" value="{{ old('author') ?? $news->author}}">
         </div>
@@ -55,12 +51,27 @@
                 <option @if($news->status === 'blocked') selected @endif>blocked</option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="description">Описание</label>
+            <textarea class="form-control" name="description" id="description">{{ old('description') ?? $news->description}}</textarea>
+        </div>
         <button style="margin-top:20px;" type="submit" class="btn btn-success">Update</button>
         <a href="{{ route('admin.news.index') }}" style="margin-top:20px;"  class="btn btn-danger">Cancel</a>
     </form>
 @endsection
+@push('js')
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#description' ), {
+                ckfinder: {
+                    uploadUrl: '{{route('image.upload').'?_token='.csrf_token()}}',
+                }
+            })
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endpush
 
-{{--@push('js')--}}
-{{--    <script>alert('Hello')</script>--}}
-{{--@endpush--}}
+
 
